@@ -9,10 +9,10 @@
 ---
 
 ## 👥 Group 4 Members
-1. **G. Nithin Kumar** — `AP25110070740` (Project Lead & Frontend/Visualizer Architecture)
+1. ***G. Nithin Kumar** — `AP25110070740` ('nithin_grandhi@srmap.edu.in') (Project Lead & Frontend/Visualizer Architecture)
 2. **K. Veera Manikanta** — `AP25110070764` (`manikanta_kedasu@srmap.edu.in`) (Empirical Benchmarking & Memory Profiling)
 3. **R. Rohan Sathwik** — `AP25110071363` (`sathwik_rokkam@srmuap.edu.in`) (Theoretical Complexity & Recurrence Proofs)
-4. **D. Rakesh** — `AP25110071261` (`rakesh_danaboyina@srmap.edu.in`) (Real-World Industry Applications & Scenarios)
+4. **D. Rakesh** — `AP25110071261` (`rakesh_danaboyina@srmap.edu.in`)
 
 ---
 
