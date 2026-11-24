@@ -1,0 +1,138 @@
+/* Custom CSS for DAA Sorting Visualizer & Benchmarking Suite */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root {
+  --bg-primary: #0a0f1d;
+  --bg-card: rgba(15, 23, 42, 0.75);
+  --border-card: rgba(255, 255, 255, 0.08);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-primary);
+  color: #e2e8f0;
+}
+
+code, pre, .font-mono {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Glassmorphism containers */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-card);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Visualizer Bars */
+.bars-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 3px;
+  height: 280px;
+  padding: 10px;
+  background: rgba(10, 15, 29, 0.85);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.visualizer-bar {
+  flex: 1;
+  min-width: 6px;
+  max-width: 32px;
+  border-radius: 4px 4px 0 0;
+  position: relative;
+  transition: height 0.08s ease, background-color 0.12s ease;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.bar-default {
+  background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.25);
+}
+
+.bar-active {
+  background: linear-gradient(180deg, #fbbf24 0%, #d97706 100%) !important;
+  box-shadow: 0 0 14px rgba(251, 191, 36, 0.8) !important;
+  transform: scaleY(1.02);
+  z-index: 5;
+}
+
+.bar-pivot {
+  background: linear-gradient(180deg, #ec4899 0%, #be185d 100%) !important;
+  box-shadow: 0 0 14px rgba(236, 72, 153, 0.9) !important;
+  z-index: 10;
+}
+
+.bar-range {
+  background: linear-gradient(180deg, #818cf8 0%, #4f46e5 100%);
+  opacity: 0.9;
+}
+
+.bar-sorted {
+  background: linear-gradient(180deg, #34d399 0%, #059669 100%) !important;
+  box-shadow: 0 0 10px rgba(52, 211, 153, 0.4) !important;
+}
+
+.bar-label {
+  font-size: 9px;
+  font-weight: 600;
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+  margin-top: 2px;
+  pointer-events: none;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.pivot-tag {
+  position: absolute;
+  top: -18px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #f472b6;
+  background: rgba(244, 114, 182, 0.2);
+  border: 1px solid rgba(244, 114, 182, 0.4);
+  border-radius: 9999px;
+  padding: 0 4px;
+}
+
+/* Tab active style */
+.tab-btn.active {
+  background: #2563eb;
+  color: #ffffff;
+  border-color: #3b82f6;
+  box-shadow: 0 0 12px rgba(37, 99, 235, 0.4);
+}
+
+/* Animations */
+@keyframes pulse-subtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 2s infinite ease-in-out;
+}
