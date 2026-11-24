@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DAA Presentation: Merge Sort vs Quick Sort - Group 4</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @media print {
+      .no-print { display: none !important; }
+      .slide { page-break-after: always; height: 100vh; }
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen flex flex-col justify-between p-6 sm:p-12">
+  
+  <!-- Slide Top Bar -->
+  <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-6">
+    <div class="text-xs text-sky-400 font-semibold uppercase tracking-wider">
+      SRM University-AP &bull; DAA Project &bull; Group 4 (Sec-Q AIML)
+    </div>
+    <div class="flex items-center space-x-3 no-print">
+      <button onclick="prevSlide()" class="px-3 py-1 rounded bg-slate-800 hover:bg-slate-700 text-xs text-slate-200">Prev</button>
+      <span id="slide-num" class="text-xs font-mono text-slate-400">Slide 1 / 10</span>
+      <button onclick="nextSlide()" class="px-3 py-1 rounded bg-sky-600 hover:bg-sky-500 text-xs text-white">Next</button>
+      <button onclick="window.print()" class="px-3 py-1 rounded bg-emerald-600 hover:bg-emerald-500 text-xs text-white">Print / PDF</button>
+    </div>
+  </div>
+
+  <!-- Slide Content Canvas -->
+  <div id="slide-container" class="flex-1 flex flex-col justify-center max-w-5xl mx-auto w-full">
+    <!-- Populated by JS -->
+  </div>
+
+  <!-- Slide Footer -->
+  <div class="border-t border-slate-900 pt-4 mt-6 flex justify-between text-xs text-slate-500">
+    <span>Faculty Guide: Dr. Nihar Ranjan Pradhan</span>
+    <span>Use Left/Right Arrow Keys to Navigate</span>
+  </div>
+
+  <script>
+    const slides = [
+      {
+        title: "Comparative Performance Analysis & Benchmarking: Merge Sort vs Quick Sort",
+        subtitle: "Design and Analysis of Algorithms (DAA) Course Project",
+        content: `
+          <div class="space-y-6 text-center">
+            <div class="inline-block px-4 py-1 rounded-full bg-sky-500/20 text-sky-400 text-sm font-semibold border border-sky-500/30">
+              Group 4 &bull; Section-Q (AIML) &bull; SRM University-AP
+            </div>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-left max-w-4xl mx-auto pt-4">
+              <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                <div class="text-xs text-sky-400 font-mono">AP25110070740</div>
+                <div class="font-bold text-white text-sm">G. Nithin Kumar</div>
+                <div class="text-[11px] text-slate-400">Team Lead & Visualizer</div>
+              </div>
+              <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                <div class="text-xs text-amber-400 font-mono">AP25110070764</div>
+                <div class="font-bold text-white text-sm">K. Veera Manikanta</div>
+                <div class="text-[11px] text-slate-400">Empirical Benchmarking</div>
+              </div>
+              <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                <div class="text-xs text-emerald-400 font-mono">AP25110071363</div>
+                <div class="font-bold text-white text-sm">R. Rohan Sathwik</div>
+                <div class="text-[11px] text-slate-400">Complexity Proofs</div>
+              </div>
+              <div class="bg-slate-900 p-4 rounded-xl border border-slate-800">
+                <div class="text-xs text-purple-400 font-mono">AP25110071261</div>
+                <div class="font-bold text-white text-sm">D. Rakesh</div>
+                <div class="text-[11px] text-slate-400">Real-World Scenarios</div>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        title: "Problem Statement & Key Objectives",
+        subtitle: "Formal Requirements from Faculty Guide",
+        content: `
+          <div class="bg-slate-900/80 p-6 rounded-2xl border border-sky-500/30 text-sm text-slate-300 space-y-4">
+            <p class="italic text-base text-sky-200">
+              "Implement both Merge Sort and Quick Sort and analyze their performance on various data distributions (e.g., random, sorted, reverse sorted). Evaluate and compare their time complexities and memory usage for different input sizes. Write down the real time Scenarios where this problem statement can be applicable."
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-800 text-xs">
+              <div class="space-y-1">
+                <span class="font-bold text-white block">1. Implementation</span>
+                <span class="text-slate-400">Verified code in C++, Java, Python, and interactive JavaScript web app.</span>
+              </div>
+              <div class="space-y-1">
+                <span class="font-bold text-white block">2. Empirical Testing</span>
+                <span class="text-slate-400">Benchmarked sizes N = 100 to 50,000 on 5 distinct distributions.</span>
+              </div>
+              <div class="space-y-1">
+                <span class="font-bold text-white block">3. Software Component</span>
+                <span class="text-slate-400">Full visualizer race deployed live on Vercel cloud platform.</span>
+              </div>
+            </div>
+          </div>
+        `
+      },
+      {
+        title: "Theoretical Asymptotic Complexity Matrix",
+        subtitle: "Mathematical Comparison across Dimensions",
+        content: `
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr class="bg-slate-900 border-b border-slate-800 text-slate-400 uppercase">
+                  <th class="p-3">Dimension</th>
+                  <th class="p-3 text-sky-400">Merge Sort</th>
+                  <th class="p-3 text-amber-400">Quick Sort (Lomuto)</th>
+                  <th class="p-3 text-emerald-400">Analytical Justification</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800/60 font-mono">
+                <tr><td class="p-3 font-sans">Best Case Time</td><td class="p-3 text-sky-300">Ω(N log N)</td><td class="p-3 text-amber-300">Ω(N log N)</td><td class="p-3 font-sans text-slate-300">Symmetric subproblem halves</td></tr>
+                <tr><td class="p-3 font-sans">Average Case Time</td><td class="p-3 text-sky-300">Θ(N log N)</td><td class="p-3 text-amber-300">Θ(N log N)</td><td class="p-3 font-sans text-slate-300">Quick Sort 2x-3x faster due to cache locality</td></tr>
+                <tr><td class="p-3 font-sans">Worst Case Time</td><td class="p-3 text-sky-300 font-bold">O(N log N)</td><td class="p-3 text-rose-400 font-bold">O(N²)</td><td class="p-3 font-sans text-slate-300">Lomuto splits into 0 and N-1 on sorted arrays</td></tr>
+                <tr><td class="p-3 font-sans">Auxiliary Space</td><td class="p-3 text-rose-400">O(N) buffer</td><td class="p-3 text-amber-300">O(1) data, O(log N) stack</td><td class="p-3 font-sans text-slate-300">Quick Sort sorts in-place</td></tr>
+                <tr><td class="p-3 font-sans">Stability</td><td class="p-3 text-emerald-400 font-bold">STABLE</td><td class="p-3 text-rose-400">UNSTABLE</td><td class="p-3 font-sans text-slate-300">Merge Sort preserves tie order</td></tr>
+              </tbody>
+            </table>
+          </div>
+        `
+      },
+      {
+        title: "Real-World Scenarios & Industry Applicability",
+        subtitle: "Addressing the Core Problem Statement Mandate",
+        content: `
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+              <span class="font-bold text-sky-400 text-sm block">1. Database External Sorting (PostgreSQL / MySQL)</span>
+              <p class="text-slate-300">Sorting multi-terabyte tables larger than RAM. <strong>Merge Sort is mandatory</strong> because it streams sequential disk blocks, matching disk I/O.</p>
+            </div>
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+              <span class="font-bold text-amber-400 text-sm block">2. Systems Programming (std::sort / Java Primitive Sort)</span>
+              <p class="text-slate-300">In-memory CPU sorting. <strong>Quick Sort (Introsort) wins</strong> due to spatial cache locality and minimal RAM footprint.</p>
+            </div>
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+              <span class="font-bold text-emerald-400 text-sm block">3. Financial Ledgers & E-Commerce Transactions</span>
+              <p class="text-slate-300">Sorting orders by price while preserving timestamp order. <strong>Merge Sort is required for stability</strong>.</p>
+            </div>
+            <div class="bg-slate-900 p-4 rounded-xl border border-slate-800 space-y-2">
+              <span class="font-bold text-purple-400 text-sm block">4. Embedded Systems & Automotive Microcontrollers</span>
+              <p class="text-slate-300">Microcontrollers with 32KB RAM. <strong>In-place Quick Sort</strong> avoids fatal out-of-memory kernel panics.</p>
+            </div>
+          </div>
+        `
+      },
+      {
+        title: "Conclusion & Submission Details",
+        subtitle: "Project Deliverables Ready for Evaluation",
+        content: `
+          <div class="bg-slate-900/80 p-6 rounded-2xl border border-slate-800 text-sm text-center space-y-4">
+            <div class="text-emerald-400 font-bold text-base">✅ Complete Project Package Prepared</div>
+            <p class="text-slate-300 max-w-xl mx-auto text-xs leading-relaxed">
+              Full source code, interactive visualizer, benchmarking studio, presentation deck, and viva cheatsheet integrated into the repository and deployed live.
+            </p>
+            <div class="pt-4 border-t border-slate-800 text-xs font-mono text-sky-400">
+              GitHub: https://github.com/grandhinithinkumar-gif/DAA-PROJECT
+            </div>
+          </div>
+        `
+      }
+    ];
+
+    let currentSlide = 0;
+    function renderSlide() {
+      const s = slides[currentSlide];
+      document.getElementById('slide-num').innerText = `Slide ${currentSlide + 1} / ${slides.length}`;
+      document.getElementById('slide-container').innerHTML = `
+        <div class="space-y-6">
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">${s.title}</h2>
+            <p class="text-xs sm:text-sm text-slate-400 mt-1">${s.subtitle}</p>
+          </div>
+          <div>${s.content}</div>
+        </div>
+      `;
+    }
+
+    function nextSlide() {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        renderSlide();
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        renderSlide();
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+      if (e.key === 'ArrowLeft') prevSlide();
+    });
+
+    renderSlide();
+  </script>
+</body>
+</html>
